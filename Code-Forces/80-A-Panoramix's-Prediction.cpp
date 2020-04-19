@@ -1,11 +1,11 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 bool isPrime(int n)
 {
-    for(int i = 2; i <= n/2 ; i++)
+    for (int i = 2; i <= n / 2; i++)
     {
-        if( n % i == 0)
+        if (n % i == 0)
             return false;
     }
     return true;
@@ -13,20 +13,19 @@ bool isPrime(int n)
 
 int main()
 {
-    int n , m;
+    int n, m;
     cin >> n >> m;
-    int temp = n+1;
+    int temp = n + 1;
     bool found = false;
-    while(!found)
+    while (!found)
     {
-        if(isPrime(temp))
+        if (isPrime(temp))
         {
             found = true;
-            break;
         }
         temp++;
     }
-    if(temp==m)
+    if (temp == m)
         cout << "YES" << endl;
     else
         cout << "NO" << endl;
