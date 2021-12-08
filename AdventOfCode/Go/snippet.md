@@ -4,7 +4,7 @@
    }
 
    func newDay(scanner *bufio.Scanner) *Day {
-       // logic for parsing code
+       // logic for parsing input
    }
 
    func (day Day) solveTaskOne() int {
