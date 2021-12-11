@@ -30,8 +30,8 @@ func readInput(fileName string) *bufio.Scanner {
 }
 
 func main() {
-	input := readInput("Day1.txt")
-	day1 := newDay1(input)
-	solveOne(day1)
-	solveTwo(day1)
+	input := readInput("Day2.txt")
+	day2 := newDay2(input)
+	solveOne(day2)
+	solveTwo(day2)
 }
