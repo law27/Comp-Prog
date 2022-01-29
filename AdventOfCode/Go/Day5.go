@@ -2,11 +2,14 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"math"
 	"strconv"
 	"strings"
 )
+
+const LIMIT = 10
 
 type Day5 struct {
 	inputPoints []Point
@@ -47,7 +50,7 @@ func newDay5(scanner *bufio.Scanner) *Day5 {
 	}
 }
 
-func findVerticalAndHorizontalVents(vents *[1000][1000]int, points []Point) {
+func findVerticalAndHorizontalVents(vents *[LIMIT][LIMIT]int, points []Point) {
 	for _, point := range points {
 		if point.x1 == point.x2 {
 			for i := int(math.Min(float64(point.y1), float64(point.y2))); i <= int(math.Max(float64(point.y1), float64(point.y2))); i++ {
@@ -61,7 +64,7 @@ func findVerticalAndHorizontalVents(vents *[1000][1000]int, points []Point) {
 	}
 }
 
-func findMaxValue(vents *[1000][1000]int) int {
+func findMaxValue(vents *[LIMIT][LIMIT]int) int {
 	ans := 0
 	for _, value := range vents {
 		for _, i := range value {
@@ -73,23 +76,38 @@ func findMaxValue(vents *[1000][1000]int) int {
 	return ans
 }
 
-func findDiagonal(vents *[1000][1000]int, points []Point) {
+func findDiagonal(vents *[LIMIT][LIMIT]int, points []Point) {
 	for _, point := range points {
-		if point.x1 == point.y1 {
-
+		if point.x1 != point.x2 && point.y1 != point.y2 {
+			startX := int(math.Min(float64(point.x1), float64(point.x2)))
+			endX := int(math.Max(float64(point.x1), float64(point.x2)))
+			startY := int(math.Max(float64(point.y1), float64(point.y2)))
+			endY := int(math.Min(float64(point.y1), float64(point.y2)))
+			for i, j := startX, startY; i <= endX && j >= endY; i++ {
+				vents[i][j]++
+				j--
+			}
 		}
 	}
 }
 
+func print(vents *[LIMIT][LIMIT]int) {
+	for _, arr := range vents {
+		fmt.Printf("arr: %v\n", arr)
+	}
+}
+
 func (day Day5) solveTaskOne() int {
-	var vents [1000][1000]int
+	var vents [LIMIT][LIMIT]int
 	findVerticalAndHorizontalVents(&vents, day.inputPoints)
+	print(&vents)
 	return findMaxValue(&vents)
 }
 
 func (day Day5) solveTaskTwo() int {
-	var vents [1000][1000]int
+	var vents [LIMIT][LIMIT]int
 	findVerticalAndHorizontalVents(&vents, day.inputPoints)
 	findDiagonal(&vents, day.inputPoints)
+	print(&vents)
 	return findMaxValue(&vents)
 }
